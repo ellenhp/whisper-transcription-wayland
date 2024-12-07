@@ -2,6 +2,7 @@ use std::time::Duration;
 
 use audio::record_wav;
 use enigo::{Direction, Enigo, Key, Keyboard};
+use reqwest::StatusCode;
 use tempfile::TempDir;
 use tokio::time::sleep;
 
@@ -25,7 +26,14 @@ async fn main() {
         .unwrap();
 
     let text = match client.execute(request).await {
-        Ok(response) => response.text().await.expect("Failed to get text"),
+        Ok(response) => {
+            if response.status() == StatusCode::OK {
+                response.text().await.expect("Failed to get text")
+            } else {
+                eprintln!("Request returned non-200 {:?}", response.status());
+                return;
+            }
+        },
         Err(err) => {
             eprintln!("Request failed {}", err);
             return;
