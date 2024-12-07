@@ -40,11 +40,12 @@ async fn main() {
         },
     };
 
-    // Simulate typing
     let mut enigo = Enigo::new(&Default::default()).unwrap();
     for c in text.trim().chars() {
         enigo.key(Key::Unicode(c), Direction::Click).expect("Failed to type key");
-        sleep(Duration::from_millis(5)).await;
+        if c == ' ' {
+            sleep(Duration::from_micros(500)).await;
+        }
     }
     enigo.key(Key::Space, Direction::Click).expect("Failed to type key");
 }
