@@ -1,0 +1,21 @@
+[package]
+name = "whisper-transcription"
+version = "1.0.0"
+edition = "2021"
+authors = ["Ellen Poe <ellen.h.poe@gmail.com>"]
+description = "Transcribe your voice in Wayland"
+repository = "https://github.com/ellenhp/whisper-transcription"
+keywords = ["whisper", "speech-to-text", "stt", "wayland"]
+categories = ["command-line-utilities"]
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0.94"
+cpal = "0.15.3"
+ctrlc = "3.4.5"
+enigo = { version = "0.2.1", features = ["wayland"], default-features = false }
+env_logger = "0.11.5"
+hound = "3.5.1"
+reqwest = { version = "0.12.9", features = ["rustls-tls"], default-features = false }
+tempfile = "3.14.0"
+tokio = { version = "1.38.0", features = ["rt-multi-thread", "io-util", "sync", "time", "macros", "full"] }
